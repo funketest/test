@@ -1,0 +1,10 @@
+FROM 220211432420.dkr.ecr.us-west-2.amazonaws.com/sid-verification-backend-api:build
+
+# install gunicorn server
+RUN pip install gunicorn
+
+# change to the app workdir
+WORKDIR /app
+
+#run the api
+CMD ["gunicorn", "src.api.wsgi:application", "-b", "0.0.0.0:8000"]

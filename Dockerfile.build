@@ -1,0 +1,9 @@
+FROM 220211432420.dkr.ecr.us-west-2.amazonaws.com/sid-verification-backend-api:base
+
+# Download, build and install the asr_dataset_loader_pkg lib
+RUN pip install poetry
+RUN git clone https://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@github.com/Appen/asr_dataset_loader_pkg.git
+WORKDIR /app/asr_dataset_loader_pkg
+RUN poetry build
+RUN pip install /app/asr_dataset_loader_pkg/dist/asr_dataset_loader-0.1.0-py3-none-any.whl
+

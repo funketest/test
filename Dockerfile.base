@@ -1,0 +1,32 @@
+FROM python:3.9-slim
+
+LABEL tagVER="duplicate_sv"
+
+ENV TERM xterm-256color
+
+# Set timezone:
+RUN ln -snf /usr/share/zoneinfo/$CONTAINER_TIMEZONE /etc/localtime && echo $CONTAINER_TIMEZONE > /etc/timezone
+
+# install tools and packages
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+                       build-essential \
+                       software-properties-common \
+                       curl \
+                       wget \
+                       ffmpeg \
+                       sox \
+                       apt-utils \
+                       vim \
+                       bc \
+                       make \
+                       automake \
+                       procps \
+                       git
+
+RUN mkdir "app"
+WORKDIR /app
+COPY requirements/base.txt /app/requirements/
+
+RUN pip install -r requirements/base.txt
+
